@@ -6,13 +6,9 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-/**
- * Created by pyoussef on 1/27/16.
- */
 public class Main {
     
     public static void main(String[] args) {
-        System.out.println("Hello world!");
         
         String url = "http://www.techmeme.com/";
 
@@ -27,12 +23,14 @@ public class Main {
                     
                     String reporter = titleBar.ownText().split(" / ")[0];
                     String source = titleBar.select("a").first().ownText();
-                    //String title = mainStory.select(".L3 a").first().ownText();
+                    String title = mainStory.select("strong a").first().ownText();
+                    String summary = mainStory.ownText();
                     
                     return ImmutableHeadline.builder()
                         .reporter(reporter)
                         .source(source)
-                    //    .title(title)
+                        .title(title)
+                        .summary(summary)
                         .build();
                 })
                 .forEach(System.out::println);
